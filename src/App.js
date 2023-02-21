@@ -1,9 +1,11 @@
 import "./App.css";
+import Navbar from './components/Navbar/Navbar';
+
 function App(){
-    return(
-        <>
-        <h1>Netflix Clone</h1>
-        </>
-    )
+    return (
+        <div className="App">
+          <Navbar />
+        </div>
+      );
 }
 export default App;
