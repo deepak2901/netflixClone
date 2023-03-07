@@ -11,7 +11,11 @@ const Row = ({ title, fetchUrl, isLargeRow }) => {
   const [trailerUrl, setTrailerUrl] = useState("");
 
   useEffect(() => {
-
+    const fetchData = async () => {
+      const response = await axios.get(fetchUrl);
+      setMovies(response.data.results);
+    };
+    fetchData();
   }, [fetchUrl]);
   const opts = {
     height: "390",
@@ -37,6 +41,20 @@ const Row = ({ title, fetchUrl, isLargeRow }) => {
 
   return (
     <div className="row">
+      <h2>{title}</h2>
+      <div className="row__posters">
+        {movies.map((movie) => (
+          <img
+            key={movie.id}
+            onClick={() => handleClick(movie)}
+            className={`row__poster ${isLargeRow && "row__posterLarge"}`}
+            src={`${baseUrl}${
+              isLargeRow ? movie.poster_path : movie.backdrop_path
+            }`}
+            alt={movie.name}
+          />
+        ))}
+      </div>
       {trailerUrl && (
         <YouTube
           videoId={trailerUrl}
